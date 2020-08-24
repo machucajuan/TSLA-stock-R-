@@ -1,3 +1,14 @@
+---
+title: "TSLA Stock analysis R"
+author: "Juan Machuca"
+date: "8/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 #TSLA stock analysis
 
 #Read data from local CSV (source: yahoo finance)
@@ -42,7 +53,7 @@ lm_mod_tsla <- lm(Close ~ Date, data=trainingData)  # build the model
 price_pred <- predict(lm_mod_tsla, testData)  # predict price
 summary(lm_mod_tsla)
 
-#Another way using GetBatchSymbol
+#Another to get data using Yahoo's API and the GetBatchSymbol Package 
 install.packages("BatchGetSymbols")
 library(BatchGetSymbols)
 # set dates
@@ -69,19 +80,17 @@ p <- p + facet_wrap(~ticker, scales = 'free_y')
 print(p)
 df_stocks
 
+#Linear Regression line for Selected Stocks 
 s <- ggplot(l.out$df.tickers, aes(x = ref.date, y = price.close))
 s <- s + geom_point()
 s <- s + geom_smooth(method="lm")
 s <- s + facet_wrap(~ticker, scales = 'free_y') 
 print(s)
 
-b <- ggplot(df_stocks, aes(ref.date, y=price.close)) +
-geom_boxplot()
-b <- b + facet_wrap(~ticker, scales = 'free_y') 
-print(b)
-
-#Summary statistics 
+#Summary statistics for FB
 fb <- df_stocks[df_stocks$ticker=="FB",]
 summary(fb)
+
+
 
 
