@@ -85,3 +85,4 @@ fb <- df_stocks[df_stocks$ticker=="FB",]
 summary(fb)
 
 
+
